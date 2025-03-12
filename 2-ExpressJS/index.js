@@ -3,7 +3,7 @@ const app = express();
 
 app.use(express.json());
 
-const courses = [
+let courses = [
   { id: 1, name: "HTML" },
   { id: 2, name: "CSS" },
   { id: 3, name: "Javavscript" },
@@ -62,6 +62,32 @@ app.put("/courses/:name", (req, res) => {
     res.status(404).send("The course you want update doesnt exists..");
   courseToBeUpdated.name = req.body.name;
   res.send(courseToBeUpdated);
+});
+
+//Delete a course
+
+// app.delete("/courses/:name", (req, res) => {
+//   let coursesAfterDeleted = courses.filter(
+//     (course) => course.name !== req.params.name
+//   );
+
+//   courses = coursesAfterDeleted;
+//   res.send(courses);
+// });
+
+app.delete("/courses/:id", (req, res) => {
+  let courseToBeDeleted = courses.find(
+    (course) => course.id === parseInt(req.params.id)
+  );
+  console.log("courseToBeDeleted", courseToBeDeleted);
+  if (!courseToBeDeleted)
+    res.status(404).send("The course you want to delete doesn't exists..");
+
+  let courseIndex = courses.indexOf(courseToBeDeleted);
+
+  courses.splice(courseIndex, 1);
+
+  res.send(courses);
 });
 
 const PORT = process.env.PORT || 3000;

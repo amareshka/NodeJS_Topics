@@ -1,9 +1,12 @@
 const express = require("express");
 const app = express();
+//Morgan - HTTP request logger middleware for node.js
+const morgan = require('morgan');
 const myMiddleware = require("./Middlewares/index");
 const myMiddleware2 = require("./Middlewares/index2");
 
 app.use(express.json());
+app.use(morgan('tiny'));//Tiny gives smaller info about the request
 
 //Custom middlewares
 app.use(myMiddleware);

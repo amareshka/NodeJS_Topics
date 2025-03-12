@@ -3,6 +3,17 @@ const app = express();
 
 app.use(express.json());
 
+//Custom middlewares
+app.use(function (req, res, next) {
+  console.log("Hi I am middleware");
+  next(); // Next method is used to pass the control to the next middleware or function
+});
+
+app.use(function (req, res, next) {
+  console.log("Hi I am second middleware");
+  next(); // Next method is used to pass the control to the next middleware or function
+});
+
 let courses = [
   { id: 1, name: "HTML" },
   { id: 2, name: "CSS" },

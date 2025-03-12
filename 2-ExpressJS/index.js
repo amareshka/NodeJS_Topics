@@ -51,6 +51,19 @@ app.post("/courses/", (req, res) => {
   res.send(newCourse);
 });
 
+// Update a course
+
+app.put("/courses/:name", (req, res) => {
+  let courseToBeUpdated = courses.find(
+    (course) => course.name == req.params.name
+  );
+
+  if (!courseToBeUpdated)
+    res.status(404).send("The course you want update doesnt exists..");
+  courseToBeUpdated.name = req.body.name;
+  res.send(courseToBeUpdated);
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, console.log(`We are listening to ${PORT}`));
